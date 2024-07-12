@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English to Spanish Translator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Reset default margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Open SanS", Arial, sans-serif;
+            background-color: #f1f1f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 800px; /* Increased max-width for better spacing */
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #4285f4; /* Google Blue */
+        }
+
+        .translator-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start; /* Align items at the top */
+        }
+
+        textarea {
+            font-family: Arial, sans-serif;
+            flex: 1; /* Take remaining space */
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        #translate-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #4285f4; /* Google Blue */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px; /* Equal margin on both sides */
+            height: 100px;
+        }
+
+        #translate-button i {
+            margin-right: 0; /* No margin needed for the icon */
+            margin-left: 0; /* No margin needed for the icon */
+        }
+
+        #translate-button:hover {
+            background-color: #357ae8; /* Darker shade of Google Blue */
+        }
+
+        #french-output {
+            flex: 1; /* Take remaining space */
+
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+        }
+
+        #speak-button {
+            background: none;
+            border: none;
+            color: grey;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+
+        #speak-button:hover {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SamJ Translate</h1>
+
+        <div class="translator-box">
+            <textarea id="english-input" placeholder="English here"></textarea>
+            <button id="translate-button">
+                <i class="fas fa-arrow-right"></i>
+            </button>
+            <textarea id="french-output" placeholder="Spanish here" readonly></textarea>
+            <button id="speak-button">
+                <i class="fa-solid fa-volume-high"></i>
+            </button>
+        </div>
+    </div>
+    <script>
+        document.getElementById('translate-button').addEventListener('click', function() {
+            const englishInput = document.getElementById('english-input').value.trim();
+            
+            if (englishInput.length > 0) {
+                const frenchPhrases = [
+                    "Me encantan tus ojos y tus labios.",
+                    "Tienes un cuerpo de ensueño.",
+                    "Tus curvas me vuelven loca.",
+                    "Eres increíblemente sexy.",
+                    "Quiero sentir tu cuerpo contra el mío.",
+                    "Tu sonrisa es cautivadora.",
+                    "Tienes piernas hermosas.",
+                    "Me encanta verte moverte.",
+                    "Tu mirada me hace derretir.",
+                    "Quiero besarte por todas partes.",
+                    "Tu perfume me está volviendo loco.",
+                    "Tienes unos labios irresistibles.",
+                    "Quiero tocarte.",
+                    "Tú eres la tentación encarnada.",
+                    "Tus manos son tan suaves.",
+                    "Me gusta cuando me miras así.",
+                    "Tu cuerpo es una obra de arte.",
+                    "Me encantan tus caderas.",
+                    "Quiero pasar mis dedos por tu cabello.",
+                    "Tu risa es contagiosa.",
+                    "Estoy loco por ti.",
+                    "Me gusta la forma en que te mueves.",
+                    "Eres increíblemente atractiva",
+                    "Quiero sentirte cerca de mí.",
+                    "Tus besos son mágicos.",
+                    "Quiero besarte todo el tiempo.",
+                    "Me estás volviendo loco.",
+                    "Tu cuerpo es perfecto.",
+                    "Me encanta tu sonrisa traviesa",
+                    "Quiero estar contigo todo el tiempo.",
+                    "Tus ojos son cautivadores.",
+                    "Eres la persona más sexy que he visto en mi vida",
+                    "Me encantan tus caricias.",
+                    "Tienes un encanto loco.",
+                    "Quiero tenerte en mis brazos.",
+                    "Tu cuerpo es irresistible.",
+                    "Me gusta como hablas.",
+                    "Tú eres mi tentación.",
+                    "Amo tu cuerpo.",
+                    "Eres magnifica.",
+                    "Quiero sentir tu piel contra la mía.",
+                    "Tus labios son tan suaves.",
+                    "Quiero besarte apasionadamente.",
+                    "Eres mi fantasía.",
+                    "Tu cuerpo es perfecto.",
+                    "Estoy obsesionado contigo.",
+                    "Me gusta mirarte.",
+                    "Tienes ojos de ensueño.",
+                    "Quiero estar contigo.",
+                    "Tu sonrisa me hace reír.",
+                    "Quiero sentir tu aliento en mi piel.",
+                    "Eres tan sexy.",
+                    "Quiero tocarte todo el tiempo.",
+                    "Tu cuerpo es una tentación.",
+                    "Me encanta tu voz sensual.",
+                    "Quiero tenerte toda para mí.",
+                    "Eres una verdadera belleza.",
+                    "Quiero sentir tus labios sobre los míos.",
+                    "Tu cuerpo me está haciendo perder la cabeza.",
+                    "Quiero pasar horas besándote.",
+                    "Tú eres mi mayor tentación"
+                ];
+                
+                let translatedText = "";
+                
+                // Split the input text by punctuation that ends a sentence (. or ! or ? or ,)
+                const sentences = englishInput.match(/[^.!?,]+[.!?,]?|[^.!?,]+[.!?,]?$/g);
+                
+                // Function to extract proper nouns
+                function extractProperNouns(sentence) {
+                    const words = sentence.match(/\b([A-Z][a-z]*|I)\b/g);
+                    return words ? words.filter(word => word !== "I" && word !== sentence.split(" ")[0]) : [];
+                }
+
+                // For each sentence, add a random French phrase
+                sentences.forEach((sentence, index) => {
+                    const trimmedSentence = sentence.trim();
+                    let properNouns = [];
+
+                    if (trimmedSentence !== "") {
+                        let randomPhrase;
+
+                        // Check if the sentence is a single word or just a comma
+                        if (trimmedSentence.split(/\s+/).length === 1 || trimmedSentence === ',') {
+                            randomPhrase = "Hola."; // Replace single-word sentences or just commas with "Bonjour"
+                        } else {
+                            properNouns = extractProperNouns(trimmedSentence);
+                            const randomIndex = Math.floor(Math.random() * frenchPhrases.length);
+                            randomPhrase = frenchPhrases[randomIndex];
+                        }
+
+                        // Preserve punctuation from the English sentence
+                        const lastChar = trimmedSentence.charAt(trimmedSentence.length - 1);
+                        if (lastChar === '.' || lastChar === '!' || lastChar === '?' || lastChar === ',') {
+                            randomPhrase = randomPhrase.slice(0, -1) + " " + properNouns.join(" ") + lastChar; // Add proper nouns before the punctuation
+                        } else {
+                            randomPhrase += " " + properNouns.join(" ");
+                        }
+
+                        // Add the French phrase
+                        translatedText += randomPhrase + " ";
+                    }
+                });
+                
+                // Update the French output textarea
+                document.getElementById('french-output').value = translatedText.trim();
+            } else {
+                document.getElementById('french-output').value = "Please enter some text in English.";
+            }
+        });
+
+        document.getElementById('speak-button').addEventListener('click', function() {
+            const frenchOutput = document.getElementById('french-output').value;
+            const speech = new SpeechSynthesisUtterance(frenchOutput);
+            speech.lang = 'es-ES';
+            window.speechSynthesis.speak(speech);
+        });
+    </script>
+</body>
+</html>
